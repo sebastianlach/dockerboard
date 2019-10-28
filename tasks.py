@@ -20,6 +20,7 @@ def docs(context, docs=False):
     if docs:
         context.run("echo sphinx-build")
 
+
 @task
 def clean(context, bytecode=False, extra=''):
     """Clean up ignored files and cache."""
@@ -27,4 +28,14 @@ def clean(context, bytecode=False, extra=''):
     context.run("find . -type f -name \"*.py[co]\" -delete")
     context.run("find . -type d -name \"__pycache__\" -exec rm -r {} +")
     context.run("git clean -f -d")  # remove directories
-    context.run("git clean -f -X")  # remove ignored files
+    context.run("git clean -f -X")  # remove ignored filesi
+
+
+@task
+def serve(context):
+    """Start server"""
+    logger.info("Starting server")
+    context.run(
+        "python dockerboard/manage.py runserver 0.0.0.0:8000",
+        pty=True,
+    )
