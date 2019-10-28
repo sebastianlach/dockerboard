@@ -25,18 +25,15 @@
           </a>
         </li>
         {% url 'containers:list' as path %}
-          <li class="nav-item {% if request.path == path %}active{% endif %}">
+        <li class="nav-item {% if request.path == path %}active{% endif %}">
           <a class="nav-link" href="{% url 'containers:list' %}">
               Containers
           </a>
         </li>
-        <li class="nav-item">
-           <a class="nav-link" href="#">Images</a>
+        {% url 'images:list' as path %}
+        <li class="nav-item {% if request.path == path %}active{% endif %}">
+           <a class="nav-link" href="{% url 'images:list' %}">Images</a>
         </li>
-        <li class="nav-item">
-           <a class="nav-link" href="#">Settings</a>
-        </li>
-        <li class="nav-item">
         <li class="nav-item">
           <a class="nav-link disabled" href="#">v0.1.0</a>
         </li>
