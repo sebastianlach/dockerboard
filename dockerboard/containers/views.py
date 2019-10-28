@@ -5,6 +5,6 @@ from datasource.source import DockerSource
 def list(request):
     datasource = DockerSource()
     context = dict(
-        containers=datasource.containers,
+        containers=datasource.containers(all=True),
     )
     return render(request, 'containers/list.html', context)

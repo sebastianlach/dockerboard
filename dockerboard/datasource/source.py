@@ -6,10 +6,8 @@ class DockerSource(object):
     def __init__(self, url=None):
         self.client = from_env()
 
-    @property
-    def containers(self):
-        return self.client.containers.list()
+    def containers(self, *args, **kwargs):
+        return self.client.containers.list(**kwargs)
 
-    @property
-    def images(self):
-        return self.client.images.list()
+    def images(self, *args, **kwargs):
+        return self.client.images.list(**kwargs)

@@ -2,10 +2,6 @@
 {% block content %}
 <div class="container">
 
-    <div class="row">
-        <h2>Containers</h2>
-    </div>
-
     {% for container in containers %}
     <div class="row mb-2">
         <div class="col-lg-3">
@@ -13,13 +9,30 @@
                 {{ container.name }}
             </a>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
+            <span class="btn btn-block btn-outline-dark">
+            {{ container.image.short_id|slice:"-10:" }}
+            </span>
+        </div>
+        <div class="col-lg-4">
             {% for tag in container.image.tags %}
                 {{ tag }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </div>
-        <div class="col-lg-2">{{ container.image.short_id|slice:"-10:" }}</div>
-        {{ container.status }}
+        <div class="col-lg-2">
+            <span class="btn btn-block 
+                {% if container.status == 'running' %}btn-outline-success{% endif %}
+                {% if container.status == 'exited' %}btn-outline-danger{% endif %}
+                {% if container.status == 'created' %}btn-outline-warning{% endif %}
+            ">
+                {{ container.status }}
+            </span>
+        </div>
+        <div class="col-lg-1">
+            <span class="btn btn-block btn-outline-dark">
+            &bull;
+            </span>
+        </div>
     </div>
     {% endfor %}
 
