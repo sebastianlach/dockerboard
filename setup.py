@@ -36,7 +36,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'dockerboard=dockerboard.scripts.bootstrap:main',
+            'dockerboard=dockerboard.dockerboard:main',
         ],
     },
 )
