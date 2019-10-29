@@ -1,4 +1,12 @@
 {% extends 'layout.html' %}
+
+{% block script %}
+    $('.selectmenu').selectmenu();
+    $('.selectmenu').on('selectmenuchange', function() {
+        alert('x'); 
+    });
+{% endblock %}
+
 {% block content %}
 <div class="container">
 
@@ -9,15 +17,14 @@
                 {{ container.name }}
             </a>
         </div>
-        <div class="col-lg-2">
-            <span class="btn btn-block btn-outline-dark">
-            {{ container.image.short_id|slice:"-10:" }}
-            </span>
-        </div>
         <div class="col-lg-4">
-            {% for tag in container.image.tags %}
-                {{ tag }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
+            <span class="btn btn-block btn-outline-secondary">
+                {% if container.image.tags %}
+                    {{ container.image.tags.0 }}
+                {% else %}
+                    {{ container.image.short_id|slice:"-10:" }}
+                {% endif %}
+             </span>
         </div>
         <div class="col-lg-2">
             <span class="btn btn-block 
@@ -28,10 +35,11 @@
                 {{ container.status }}
             </span>
         </div>
-        <div class="col-lg-1">
-            <span class="btn btn-block btn-outline-dark">
-            &bull;
-            </span>
+        <div class="col-lg-3">
+            <select name="action" class="selectmenu">
+              <option disabled selected>Execute</option>
+              <option>Delete</option>
+            </select>
         </div>
     </div>
     {% endfor %}
