@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
+{% load prettify %}
 
 {% block script %}
-    $(".accordion").accordion();
+    $(".accordion").accordion({
+        heightStyle: "content"
+    });
 {% endblock %}
 
 {% block content %}
@@ -21,10 +24,10 @@
     </div>
 
     <div class="row">
-        <div class="accordion">
+        <div class="accordion col-lg-12">
             {% for key, values in container.attrs.items %}
             <h3>{{ key }}</h3>
-            <div><p>{{ values }}</p></div>
+            <div><p><pre>{{ values | pretty_yaml }}</pre></p></div>
             {% endfor %}
         </div>
     </div>
