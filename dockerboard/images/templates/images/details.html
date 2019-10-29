@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load prettify %}
+
+{% block script %}
+    $('.accordion').accordion({
+        heightStyle: "content"
+    });
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <h2>{{ image }}</h2>
+    </div>
+    
+    <div class="row">
+        <div class="accordion col-lg-12">
+            {% for key, values in image.attrs.items %}
+            <h3>{{ key }}</h3>
+            <div><p><pre>{{ values | pretty_yaml }}</pre></p></div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

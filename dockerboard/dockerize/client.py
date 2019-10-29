@@ -14,3 +14,7 @@ class DockerizeClient(object):
 
     def images(self, *args, **kwargs):
         return self.client.images.list(**kwargs)
+
+    def get_image(self, image_id, *args, **kwargs):
+        return self.client.images.get(image_id)
+

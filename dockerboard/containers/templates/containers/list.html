@@ -18,13 +18,13 @@
             </a>
         </div>
         <div class="col-lg-4">
-            <span class="btn btn-block btn-outline-secondary">
+            <a href="{% url 'images:details' container.image.id %}" class="btn btn-block btn-outline-secondary">
                 {% if container.image.tags %}
                     {{ container.image.tags.0 }}
                 {% else %}
                     {{ container.image.short_id|slice:"-10:" }}
                 {% endif %}
-             </span>
+            </a>
         </div>
         <div class="col-lg-2">
             <span class="btn btn-block 
