@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block script %}
+    $(".accordion").accordion();
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+    <h2>{{ container.name }}</h2>
+    </div>
+    
+    <div class="row">
+    <ul>
+     <li>{{ container.id }}</li>
+     <li>{{ container.image }}</li>
+     <li>{{ container.labels }}</li>
+     <li>{{ container.status }}</li>
+    </ul>
+    </div>
+
+    <div class="row">
+        <div class="accordion">
+            {% for key, values in container.attrs.items %}
+            <h3>{{ key }}</h3>
+            <div><p>{{ values }}</p></div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

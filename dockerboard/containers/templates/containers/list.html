@@ -5,7 +5,7 @@
     {% for container in containers %}
     <div class="row mb-2">
         <div class="col-lg-3">
-            <a href="{% url 'dashboard:index' %}" class="btn btn-block btn-outline-primary">
+            <a href="{% url 'containers:details' container.id %}" class="btn btn-block btn-outline-primary">
                 {{ container.name }}
             </a>
         </div>

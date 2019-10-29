@@ -1,12 +1,11 @@
 from django.shortcuts import render
-from datasource.source import DockerSource
+from dockerize.client import DockerizeClient
 
 
 def list(request):
-    datasource = DockerSource()
-    images = datasource.images
+    client = DockerizeClient()
     context = dict(
-        images=images,
-        count=len(images),
+        images=client.images(),
     )
     return render(request, 'images/list.html', context)
+
