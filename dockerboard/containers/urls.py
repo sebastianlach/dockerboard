@@ -7,5 +7,5 @@ app_name = 'containers'
 urlpatterns = [
     url(r'^list.html$', views.list, name='list'),
     url(r'^(?P<container_id>.+)/details.html$', views.details, name='details'),
-    url(r'^(?P<container_id>.+)/logs.html$', views.details, name='logs'),
+    url(r'^(?P<container_id>.+)/restart$', views.restart, name='restart'),
 ]

@@ -3,10 +3,9 @@
 {% block script %}
     $('.selectmenu').selectmenu({
         change: function(event, ui) {
-            var action = $(this).val();
             var container_id = $(this).attr('data-container-id');
-            console.log(action + container_id);
-            var url = '/containers/list.html';
+            var url = $(this).val();
+            console.log(url);
             $.get(url, function(data) {
                 console.log('done');
                 console.log(data);
@@ -47,8 +46,10 @@
         </div>
         <div class="col-lg-3">
             <select name="action" class="selectmenu" data-container-id="{{ container.id }}">
-              <option value="action" disabled selected>Action</option>
-              <option value="restart">Restart</option>
+                <option value="action" disabled selected>Action</option>
+                <option value="{% url 'containers:restart' container.id %}">
+                    Restart
+                </option>
             </select>
         </div>
     </div>
