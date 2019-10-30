@@ -1,28 +1,42 @@
 {% extends 'layout.html' %}
 
 {% block script %}
-    $('.selectmenu').selectmenu({
-        change: function(event, ui) {
-            var container_id = $(this).attr('data-container-id');
-            var url = $(this).val();
+
+    $(".dropdown-menu a").click(function(){
+        var url = $(this).attr('data-url');
+        $.get(url, function(data) {
             console.log(url);
-            $.get(url, function(data) {
-                console.log('done');
-                console.log(data);
-            });
-            $(this).val('action');
-            $(this).selectmenu('refresh');
-        }
+            location.reload();
+        });
     });
+
 {% endblock %}
 
 {% block content %}
 <div class="container">
 
+    <div class="row mb-2">
+        <div class="col-lg-3">
+            <a href="#" class="btn btn-block btn-primary button-select-all">
+                <b>SELECT ALL</b>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <span class="btn btn-block btn-secondary">
+                <b>NAME</b>
+            </span>
+        </div>
+        <div class="col-lg-2">
+            <span class="btn btn-block btn-secondary">
+                <b>STATUS</b>
+            </span>
+        </div>
+    </div>
+
     {% for container in containers %}
     <div class="row mb-2">
         <div class="col-lg-3">
-            <a href="{% url 'containers:details' container.id %}" class="btn btn-block btn-outline-primary">
+            <a href="#" class="btn btn-block btn-outline-primary">
                 {{ container.name }}
             </a>
         </div>
@@ -44,13 +58,24 @@
                 {{ container.status }}
             </span>
         </div>
-        <div class="col-lg-3">
-            <select name="action" class="selectmenu" data-container-id="{{ container.id }}">
-                <option value="action" disabled selected>Action</option>
-                <option value="{% url 'containers:restart' container.id %}">
-                    Restart
-                </option>
-            </select>
+        <div class="col-lg-2">
+
+            <div class="dropdown show">
+              <a class="btn btn-block btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#" data-url="{% url 'containers:start' container.id %}">Start</a>
+                <a class="dropdown-item" href="#" data-url="{% url 'containers:restart' container.id %}">Restart</a>
+                <a class="dropdown-item" href="#" data-url="{% url 'containers:stop' container.id %}">Stop</a>
+                <a class="dropdown-item" href="#">Remove</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-1">
+            <a href="{% url 'containers:details' container.id %}" class="btn btn-block btn-primary">
+                &raquo;
+            </a>
         </div>
     </div>
     {% endfor %}

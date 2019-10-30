@@ -13,7 +13,7 @@ app = Celery(
 
 
 @app.task(name='restart_container')
-def restart_containers(container_id, *args, **kwargs):
+def restart_container(container_id, *args, **kwargs):
     try:
         client = DockerizeClient()
         container = client.get_container(container_id)
@@ -21,3 +21,26 @@ def restart_containers(container_id, *args, **kwargs):
     except APIError as e:
         return False
     return True
+
+
+@app.task(name='stop_container')
+def stop_container(container_id, *args, **kwargs):
+    try:
+        client = DockerizeClient()
+        container = client.get_container(container_id)
+        container.stop()
+    except APIError as e:
+        return False
+    return True
+
+
+@app.task(name='start_container')
+def start_containers(container_id, *args, **kwargs):
+    try:
+        client = DockerizeClient()
+        container = client.get_container(container_id)
+        container.start()
+    except APIError as e:
+        return False
+    return True
+
