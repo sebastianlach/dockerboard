@@ -11,16 +11,21 @@
 <div class="container">
 
     <div class="row">
-    <h2>{{ container.name }}</h2>
+        <div class="col-lg-6">
+            <h2>{{ container.name }} ({{ container.short_id }})</h2>
+        </div>
+        <div class="col-lg-6">
+            <div class="float-right">
+                <span class="btn btn-outline-success">
+                    {{ container.status }}
+                </span>
+            </div>
+        </div>
     </div>
-    
+
     <div class="row">
-    <ul>
-     <li>{{ container.id }}</li>
-     <li>{{ container.image }}</li>
-     <li>{{ container.labels }}</li>
-     <li>{{ container.status }}</li>
-    </ul>
+        {{ container.image }}</li>
+        {{ container.labels }}</li>
     </div>
 
     <div class="row">

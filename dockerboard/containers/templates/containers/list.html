@@ -1,9 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block script %}
-    $('.selectmenu').selectmenu();
-    $('.selectmenu').on('selectmenuchange', function() {
-        alert('x'); 
+    $('.selectmenu').selectmenu({
+        change: function(event, ui) {
+            var action = $(this).val();
+            var container_id = $(this).attr('data-container-id');
+            console.log(action + container_id);
+            var url = '/containers/list.html';
+            $.get(url, function(data) {
+                console.log('done');
+                console.log(data);
+            });
+            $(this).val('action');
+            $(this).selectmenu('refresh');
+        }
     });
 {% endblock %}
 
@@ -36,9 +46,9 @@
             </span>
         </div>
         <div class="col-lg-3">
-            <select name="action" class="selectmenu">
-              <option disabled selected>Execute</option>
-              <option>Delete</option>
+            <select name="action" class="selectmenu" data-container-id="{{ container.id }}">
+              <option value="action" disabled selected>Action</option>
+              <option value="restart">Restart</option>
             </select>
         </div>
     </div>

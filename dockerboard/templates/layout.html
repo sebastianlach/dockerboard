@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,6 +13,28 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+
+        <style type="text/css">
+            .loading-modal {
+                display:    none;
+                position:   fixed;
+                z-index:    1000;
+                top:        0;
+                left:       0;
+                height:     100%;
+                width:      100%;
+                background: rgba( 255, 255, 255, .8 ) 
+                            url('{% static "loader.gif" %}') 
+                            50% 50% 
+                            no-repeat;
+            }
+            body.loading .loading-modal {
+                overflow: hidden;   
+            }
+            body.loading .loading-modal {
+                display: block;
+            }
+        </style>
 
     </head>
     <body style="padding-top: 4rem;">
@@ -62,13 +85,28 @@
                 </p>
             </footer>
 
+            <div class="loading-modal"></div>
+
         </main>
 
         <script type="text/javascript">
+
+            $body = $("body");
+
+            $(document).on({
+                ajaxStart: function() { 
+                    $body.addClass("loading");
+                },
+                ajaxStop: function() {
+                    $body.removeClass("loading");
+                }
+            });
+
             $(document).ready(function() {
                 {% block script %}
                 {% endblock %}
             });
+
         </script>
 
     </body>
