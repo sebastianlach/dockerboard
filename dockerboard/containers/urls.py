@@ -1,11 +1,11 @@
-from django.urls import path
+from django.conf.urls import url
 from . import views
 
 
 app_name = 'containers'
 
 urlpatterns = [
-    path('list.html', views.list, name='list'),
-    path('<str:container_id>/details.html', views.details, name='details'),
-    path('<str:container_id>/logs.html', views.details, name='results'),
+    url(r'^list.html$', views.list, name='list'),
+    url(r'^(?P<container_id>.+)/details.html$', views.details, name='details'),
+    url(r'^(?P<container_id>.+)/logs.html$', views.details, name='logs'),
 ]

@@ -1,8 +1,8 @@
-from django.urls import include, path
+from django.conf.urls import include, url
 
 
 urlpatterns = [
-    path('', include('dashboard.urls', namespace='dashboard')),
-    path('containers/', include('containers.urls', namespace='containers')),
-    path('images/', include('images.urls', namespace='images')),
+    url(r'^$', include('dashboard.urls', namespace='dashboard')),
+    url(r'^containers/', include('containers.urls', namespace='containers')),
+    url(r'^images/', include('images.urls', namespace='images')),
 ]

@@ -32,10 +32,22 @@ def clean(context, bytecode=False, extra=''):
 
 
 @task
-def serve(context):
+def server(context):
     """Start server"""
     logger.info("Starting server")
     context.run(
         "python dockerboard/manage.py runserver 0.0.0.0:8000",
         pty=True,
     )
+
+
+@task
+def worker(context):
+    """Start workers"""
+    logger.info("Starting worker")
+    context.run(
+        "celery worker -A dockerboard.dockerize.tasks -l info",
+        pty=True,
+    )
+
+

@@ -1,10 +1,10 @@
-from django.urls import path
+from django.conf.urls import url
 from . import views
 
 
 app_name = 'images'
 
 urlpatterns = [
-    path('list.html', views.list, name='list'),
-    path('<str:image_id>/details.html', views.details, name='details'),
+    url(r'^list.html$', views.list, name='list'),
+    url(r'^(?P<image_id>.+)/details.html$', views.details, name='details'),
 ]
