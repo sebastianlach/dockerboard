@@ -6,8 +6,9 @@ from dockerize.tasks import app
 
 def list(request):
     client = DockerizeClient()
+    containers = client.containers(all=True)
     context = dict(
-        containers=client.containers(all=True),
+        containers=containers,
     )
     return render(request, 'containers/list.html', context)
 

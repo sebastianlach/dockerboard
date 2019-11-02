@@ -1,4 +1,5 @@
 from docker import from_env
+from .container import DockerizeContainer
 
 
 class DockerizeClient(object):
@@ -7,10 +8,15 @@ class DockerizeClient(object):
         self.client = from_env()
 
     def containers(self, *args, **kwargs):
-        return self.client.containers.list(**kwargs)
+        return map(
+            lambda container: DockerizeContainer(container),
+            self.client.containers.list(**kwargs)
+        )
 
     def get_container(self, container_id, *args, **kwargs):
-        return self.client.containers.get(container_id)
+        return DockerizeContainer(
+            self.client.containers.get(container_id)
+        )
 
     def images(self, *args, **kwargs):
         return self.client.images.list(**kwargs)

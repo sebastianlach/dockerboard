@@ -2,7 +2,7 @@
 
 {% block script %}
 
-    $(".dropdown-menu a").click(function(){
+    $(".dropdown-menu a").click(function() {
         var url = $(this).attr('data-url');
         $.get(url, function(data) {
             console.log(url);
@@ -10,23 +10,30 @@
         });
     });
 
+    $(".button-checkable").click(function() {
+        $(this).toggleClass("btn-primary");
+        $(this).toggleClass("btn-outline-primary");
+        $(this).toggleClass("checked");
+    });
+
+
 {% endblock %}
 
 {% block content %}
 <div class="container">
 
     <div class="row mb-2">
-        <div class="col-lg-3">
+        <div class="col-md-4">
             <a href="#" class="btn btn-block btn-primary button-select-all">
                 <b>SELECT ALL</b>
             </a>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <span class="btn btn-block btn-secondary">
                 <b>NAME</b>
             </span>
         </div>
-        <div class="col-lg-2">
+        <div class="col-md-4">
             <span class="btn btn-block btn-secondary">
                 <b>STATUS</b>
             </span>
@@ -35,21 +42,30 @@
 
     {% for container in containers %}
     <div class="row mb-2">
-        <div class="col-lg-3">
-            <a href="#" class="btn btn-block btn-outline-primary">
-                {{ container.name }}
-            </a>
+        <div class="col-md-4">
+
+            <div class="btn-group btn-block">
+                <button class="btn btn-block btn-outline-primary button-checkable" type="button">
+                    {{ container.name }}
+                </button>
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" data-url="{% url 'containers:start' container.id %}">Start</a>
+                    <a class="dropdown-item" href="#" data-url="{% url 'containers:restart' container.id %}">Restart</a>
+                    <a class="dropdown-item" href="#" data-url="{% url 'containers:stop' container.id %}">Stop</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-md-4">
             <a href="{% url 'images:details' container.image.id %}" class="btn btn-block btn-outline-secondary">
-                {% if container.image.tags %}
-                    {{ container.image.tags.0 }}
-                {% else %}
-                    {{ container.image.short_id|slice:"-10:" }}
-                {% endif %}
+                {{ container.image.name }}
             </a>
         </div>
-        <div class="col-lg-2">
+        <div class="col-md-4">
             <span class="btn btn-block 
                 {% if container.status == 'running' %}btn-outline-success{% endif %}
                 {% if container.status == 'exited' %}btn-outline-danger{% endif %}
@@ -57,25 +73,6 @@
             ">
                 {{ container.status }}
             </span>
-        </div>
-        <div class="col-lg-2">
-
-            <div class="dropdown show">
-              <a class="btn btn-block btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actions
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#" data-url="{% url 'containers:start' container.id %}">Start</a>
-                <a class="dropdown-item" href="#" data-url="{% url 'containers:restart' container.id %}">Restart</a>
-                <a class="dropdown-item" href="#" data-url="{% url 'containers:stop' container.id %}">Stop</a>
-                <a class="dropdown-item" href="#">Remove</a>
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-1">
-            <a href="{% url 'containers:details' container.id %}" class="btn btn-block btn-primary">
-                &raquo;
-            </a>
         </div>
     </div>
     {% endfor %}
