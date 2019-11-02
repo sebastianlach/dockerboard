@@ -22,22 +22,35 @@
 {% block content %}
 <div class="container">
 
-    <div class="row mb-2">
+    <div class="row mb-3">
+
         <div class="col-md-4">
-            <a href="#" class="btn btn-block btn-primary button-select-all">
-                <b>SELECT ALL</b>
-            </a>
+            <div class="btn-group btn-block">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Bull action
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </div>
         </div>
+
         <div class="col-md-4">
             <span class="btn btn-block btn-secondary">
-                <b>NAME</b>
+                <b>Image</b>
             </span>
         </div>
+
         <div class="col-md-4">
             <span class="btn btn-block btn-secondary">
-                <b>STATUS</b>
+                <b>Status</b>
             </span>
         </div>
+
     </div>
 
     {% for container in containers %}
@@ -52,7 +65,7 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-url="{% url 'containers:start' container.id %}">Start</a>
+                <a class="dropdown-item" href="#" data-url="{% url 'containers:start' container.id %}" class="{% if container.state == 'running' %}disable{% endif %}">Start</a>
                     <a class="dropdown-item" href="#" data-url="{% url 'containers:restart' container.id %}">Restart</a>
                     <a class="dropdown-item" href="#" data-url="{% url 'containers:stop' container.id %}">Stop</a>
                     <div class="dropdown-divider"></div>
