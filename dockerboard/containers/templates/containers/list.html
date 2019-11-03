@@ -2,39 +2,69 @@
 
 {% block script %}
 
-    $(".dropdown-menu a").click(function() {
-        var url = $(this).attr('data-url');
-        $.get(url, function(data) {
-            console.log(url);
-            location.reload();
-        });
-    });
+    toggle_checkable = function(element) {
+        $(element).toggleClass("btn-primary");
+        $(element).toggleClass("btn-outline-primary");
+        $(element).toggleClass("checked");
+    }
+
+    check_checkable = function(element) {
+        $(element).addClass("btn-primary");
+        $(element).removeClass("btn-outline-primary");
+        $(element).addClass("checked");
+    }
+
+    uncheck_checkable = function(element) {
+        $(element).removeClass("btn-primary");
+        $(element).addClass("btn-outline-primary");
+        $(element).removeClass("checked");
+    }
+
 
     $(".button-checkable").click(function() {
-        $(this).toggleClass("btn-primary");
-        $(this).toggleClass("btn-outline-primary");
-        $(this).toggleClass("checked");
+        toggle_checkable(this);
     });
 
+    $(".containers .dropdown-menu a").click(function() {
+        var url = $(this).attr('data-url');
+        var href = $(this).attr('href');
+        if(href == '#') {
+            $.get(url, function(data) {
+                console.log(url);
+                location.reload();
+            });
+        }
+    });
+
+    $(".button-bulk-action .dropdown-menu a").click(function() {
+        var action = $(this).attr('data-action');
+        if(action == 'select-all') {
+            $(".button-checkable").each(function() {
+                check_checkable(this);
+            });
+        }
+        if(action == 'deselect-all') {
+            $(".button-checkable").each(function() {
+                uncheck_checkable(this);
+            });
+        }
+    });
 
 {% endblock %}
 
 {% block content %}
 <div class="container">
 
-    <div class="row mb-3">
+    <div class="row mb-3 mt-3">
 
         <div class="col-md-4">
-            <div class="btn-group btn-block">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn-group btn-block button-bulk-action">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Bull action
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Separated link</a>
+                    <a class="dropdown-item" href="#" data-action="select-all">Select all</a>
+                    <a class="dropdown-item" href="#" data-action="deselect-all">Deselect all</a>
                 </div>
             </div>
         </div>
@@ -54,7 +84,7 @@
     </div>
 
     {% for container in containers %}
-    <div class="row mb-2">
+    <div class="row mb-2 containers">
         <div class="col-md-4">
 
             <div class="btn-group btn-block">
@@ -69,7 +99,7 @@
                     <a class="dropdown-item" href="#" data-url="{% url 'containers:restart' container.id %}">Restart</a>
                     <a class="dropdown-item" href="#" data-url="{% url 'containers:stop' container.id %}">Stop</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="{% url 'containers:details' container.id %}">Details</a>
                 </div>
             </div>
         </div>
