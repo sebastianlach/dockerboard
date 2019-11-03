@@ -3,7 +3,7 @@
 {% block script %}
 
 var ctx = document.getElementById('container-chart-line').getContext('2d');
-var myChart = new Chart(ctx, {
+var chart_line = new Chart(ctx, {
   type: 'line',
   data: {
     labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
@@ -22,28 +22,49 @@ var myChart = new Chart(ctx, {
   }
 });
 
+var data = {
+    labels: ["running", "not running"],
+      datasets: [
+        {
+            fill: true,
+            backgroundColor: [
+                'green',
+                'red'],
+            data: [5, 95],
+            borderColor: ['black', 'black'],
+            borderWidth: [2,2]
+        }
+    ]
+};
+
+var options = {
+    rotation: -0.7 * Math.PI
+};
+
+var ctx = document.getElementById('container-chart-pie').getContext('2d');
+var chart_pie = new Chart(ctx, {
+     type: 'pie',
+    data: data,
+    options: options
+});
+
 {% endblock %}
 
 {% block content %}
 <div class="container">
+
     <div class="row">
-
-        <div class="col-lg-8">
-            <h2>Containers</h2>
-            <div class="row">
-                <canvas id="container-chart-line" style="height: 200px; width: 100%;"><canvas>
-            </div>
-            <div class="row">
-                <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-                </p>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-
+        <h2>Containers</h2>
     </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="container-chart-line" style="height: 200px; width: 100%;"><canvas>
+        </div>
+        <div class="col-md-4">
+            <canvas id="container-chart-pie" style="height: 200px; width: 100%;"><canvas>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
