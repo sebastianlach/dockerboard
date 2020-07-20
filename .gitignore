@@ -54,3 +54,5 @@ docs/build/
 *.sqlite3
 *.sqlite
 
+# node
+node_modules/
