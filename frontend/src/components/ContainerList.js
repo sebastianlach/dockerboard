@@ -9,7 +9,10 @@ class ContainerList extends Component {
       <Table dark>
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
+            <th>Status</th>
+            <th>Image</th>
             <th></th>
           </tr>
         </thead>
@@ -22,7 +25,10 @@ class ContainerList extends Component {
             </tr>
           ) : (
             containers.map(container => (
-              <tr key={container.pk}>
+              <tr key={container.id}>
+                <td>{container.short_id}</td>
+                <td>{container.name}</td>
+                <td>{container.status}</td>
                 <td>{container.image.tags}</td>
                 <td align="center">
                 </td>
