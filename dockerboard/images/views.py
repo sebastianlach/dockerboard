@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from dockerize.client import DockerizeClient
 
 
 def list(request):
-    client = DockerizeClient()
     context = dict(
         images=client.images(),
     )
@@ -11,7 +9,6 @@ def list(request):
 
 
 def details(request, image_id):
-    client = DockerizeClient()
     context = dict(
         image=client.get_image(image_id),
     )

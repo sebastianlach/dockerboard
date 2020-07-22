@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import logo from './logo.svg';
 import Nav from './components/Nav.js'
 import Dashboard from './components/Dashboard.js'
 import Containers from './components/Containers.js'
@@ -11,9 +10,11 @@ function App() {
     <Router>
       <Nav />
       <Switch>
-        <Route path="/" exact={true} component={Dashboard} />
-        <Route path="/containers" exact={true} component={Containers} />
-        <Route path="/images" exact={true} component={Images} />
+        <div>
+            <Route path="/" exact={true} component={Dashboard} />
+            <Route path="/containers" exact={true} component={Containers} />
+            <Route path="/images" exact={true} component={Images} />
+        </div>
       </Switch>
     </Router>
   );

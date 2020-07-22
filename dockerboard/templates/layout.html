@@ -42,41 +42,6 @@
     </head>
     <body style="padding-top: 4rem;">
 
-        <header>
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <a class="navbar-brand" href="{% url 'dashboard:index' %}">Dockerboard</a>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        {% url 'dashboard:index' as path %}
-                        <li class="nav-item {% if request.path == path %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'dashboard:index' %}">
-                                Dashboard
-                            </a>
-                        </li>
-                        {% url 'containers:list' as path %}
-                        <li class="nav-item {% if request.path == path %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'containers:list' %}">
-                                Containers
-                            </a>
-                        </li>
-                        {% url 'images:list' as path %}
-                        <li class="nav-item {% if request.path == path %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'images:list' %}">
-                                Images
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">v0.1.0</a>
-                        </li>
-                    </ul>
-
-                    <a class="btn btn-secondary" style="margin-left: 12px;" href="#" role="button">Run container</a>
-                    <a class="btn btn-secondary" style="margin-left: 12px;" href="#" role="button">Pull image</a>
-
-                </div>
-            </nav>
-        </header>
-
         <main role="main">
 
             {% block content %}
