@@ -5,12 +5,12 @@ from rest_framework.response import Response
 from rest_framework import serializers
 
 from .client import DockerClient
-from .serializers import ContainerSerializer
+from .serializers import ContainerSerializer, ImageSerializer
 
 
 class ContainerList(APIView):
     """
-    List all containers or add a new snippet.
+    List all containers or add a new one.
     """
     def get(self, request, format=None):
         client = DockerClient()
@@ -33,6 +33,24 @@ class ContainerView(APIView):
         container = None
         serializer = ContainerSerializer(snippet)
         return Response(serializer.data)
+
+
+class ImageList(APIView):
+    """
+    List all images or add a new one.
+    """
+    def get(self, request, format=None):
+        client = DockerClient()
+        serializer = ImageSerializer(client.list_images(), many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = SnippetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def list(request):
     client = DockerizeClient()
