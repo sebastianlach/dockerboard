@@ -14,7 +14,8 @@ class ContainerList(APIView):
     """
     def get(self, request, format=None):
         client = DockerClient()
-        serializer = ContainerSerializer(client.list_containers(), many=True)
+        containers = client.list_containers(all=True)
+        serializer = ContainerSerializer(containers, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):

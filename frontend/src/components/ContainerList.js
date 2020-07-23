@@ -12,7 +12,7 @@ const ContainerButton = (props) => {
 
   return (
           <Dropdown direction="right" isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle color="primary" caret>
+            <DropdownToggle color="primary" className="btn-block" caret>
                 {props.name}
               </DropdownToggle>
             <DropdownMenu>
@@ -34,13 +34,6 @@ class ContainerList extends Component {
     const containers = this.props.containers;
     return (
       <Container>
-        <Row>
-          <Col>ID</Col>
-          <Col>Name</Col>
-          <Col>Status</Col>
-          <Col>Image</Col>
-          <Col></Col>
-        </Row>
         {!containers || containers.length <= 0 ? (
         <Row>
           <Col>
@@ -49,16 +42,22 @@ class ContainerList extends Component {
         </Row>
         ) : (
           containers.map(container => (
-          <Row key={container.id}>
+          <Row key={container.id} style={{padding: '8px'}}>
             <Col>
               <ContainerButton name={container.short_id} />
             </Col>
-            <Col>{container.name}</Col>
             <Col>
-              <Button outline color="success">{container.status}</Button>
+              <Button className="btn-block">{container.name}</Button>
             </Col>
-            <Col>{container.image.tags}</Col>
-            <Col></Col>
+            <Col>
+              <Button className="btn-block" outline
+                color={container.status === 'running' ? 'success' : 'secondary'}>
+                {container.status}
+              </Button>
+            </Col>
+            <Col>
+              {container.image.tags}
+            </Col>
           </Row>
           ))
         )}
