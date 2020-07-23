@@ -46,7 +46,7 @@ def worker(context):
     """Start workers"""
     logger.info("Starting worker")
     context.run(
-        "celery worker -A dockerboard.dockerize.tasks -l info",
+        "celery worker -A dockerboard.api.tasks -l info",
         pty=True,
     )
 
