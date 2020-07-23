@@ -10,11 +10,9 @@ function App() {
     <Router>
       <Nav />
       <Switch>
-        <div>
-            <Route path="/" exact={true} component={Dashboard} />
-            <Route path="/containers" exact={true} component={Containers} />
-            <Route path="/images" exact={true} component={Images} />
-        </div>
+        <Route path="/" exact={true} component={Dashboard} />
+        <Route path="/containers" exact={true} component={Containers} />
+        <Route path="/images" exact={true} component={Images} />
       </Switch>
     </Router>
   );
